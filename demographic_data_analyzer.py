@@ -1,10 +1,10 @@
 import pandas as pd
 
 def calculate_demographic_data(print_data=True):
-    # Read data
+
     df = pd.read_csv("adult.data.csv")
 
-    # ===== Example analysis placeholders =====
+
     # 1. Count of each race
     race_count = df['race'].value_counts()
     
