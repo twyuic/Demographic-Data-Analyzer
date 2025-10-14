@@ -5,18 +5,18 @@ def calculate_demographic_data(print_data=True):
     df = pd.read_csv("adult.data.csv")
 
 
-    # 1. Count of each race
+
     race_count = df['race'].value_counts()
     
-    # 2. Average age of men
+
     average_age_men = round(df[df['sex'] == 'Male']['age'].mean(), 1)
 
-    # 3. Percentage with Bachelor's degree
+
     percentage_bachelors = round(
         (df['education'] == 'Bachelors').mean() * 100, 1
     )
 
-    # 4. Income by education
+
     higher_education = df[df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
     lower_education = df[~df['education'].isin(['Bachelors', 'Masters', 'Doctorate'])]
 
@@ -27,23 +27,23 @@ def calculate_demographic_data(print_data=True):
         (lower_education['salary'] == '>50K').mean() * 100, 1
     )
 
-    # 5. Min work hours
+
     min_work_hours = df['hours-per-week'].min()
     num_min_workers = df[df['hours-per-week'] == min_work_hours]
     rich_percentage = round(
         (num_min_workers['salary'] == '>50K').mean() * 100, 1
     )
 
-    # 6. Country with highest percentage of rich people
+
     country_rich = (df[df['salary'] == '>50K']['native-country'].value_counts() /
                     df['native-country'].value_counts() * 100)
     highest_earning_country = country_rich.idxmax()
     highest_earning_country_percentage = round(country_rich.max(), 1)
 
-    # 7. Most popular occupation in India for rich people
+
     top_IN_occupation = df[(df['native-country'] == 'India') & (df['salary'] == '>50K')]['occupation'].value_counts().idxmax()
 
-    # ===== Print results if required =====
+
     if print_data:
         print("Number of each race:\n", race_count)
         print("Average age of men:", average_age_men)
@@ -56,7 +56,7 @@ def calculate_demographic_data(print_data=True):
         print(f"Highest percentage of rich people in country: {highest_earning_country_percentage}%")
         print("Top occupation in India:", top_IN_occupation)
 
-    # ===== Return results as dict (needed for FCC test) =====
+
     return {
         'race_count': race_count,
         'average_age_men': average_age_men,
@@ -70,6 +70,6 @@ def calculate_demographic_data(print_data=True):
         'top_IN_occupation': top_IN_occupation
     }
 
-# For manual testing
+
 if __name__ == "__main__":
     calculate_demographic_data()
